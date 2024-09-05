@@ -1,4 +1,7 @@
 from django.shortcuts import render, redirect
+from django import forms
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from . import util
 
@@ -42,3 +45,33 @@ def search(request):
         return render(request, "encyclopedia/index.html", {
             "entries": util.list_entries()
         })
+
+class NewPageForm(forms.Form):
+    title = forms.CharField(label="Title", max_length=100)
+    content = forms.CharField(widget=forms.Textarea, label="content")
+
+
+def create_page(request):
+    if request.method == "POST":
+        form = NewPageForm(request.POST)
+        if form.is_valid():
+            title = form.cleaned_data["title"]
+            content = form.cleaned_data["content"]
+
+            # Checks if the title already exists
+            if util.get_entry(title) is not None:
+                return render(request, "encyclopedia/create_page.html", {
+                    "form": form,
+                    "error": "An entry with this title already exists."
+                })
+
+            # Saves the new entry
+            util.save_entry(title, content)
+            return HttpResponseRedirect(reverse("entry", kwargs={"title": title}))
+    else:
+        form = NewPageForm()
+
+    return render(request, "encyclopedia/create_page.html", {
+        "form": form
+    })
+
