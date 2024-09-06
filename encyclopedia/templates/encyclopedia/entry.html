@@ -7,8 +7,7 @@
 {% block body %}
 <h1>All Pages</h1>
 
-<ul>
-    {{ entry | safe }}
-</ul>
+{{ entry | safe }}
 
+<a href="{% url 'edit_page' title=title %}" class="btn btn-primary">Edit Page</a>
 {% endblock %}

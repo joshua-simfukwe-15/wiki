@@ -75,3 +75,34 @@ def create_page(request):
         "form": form
     })
 
+
+class EditPageForm(forms.Form):
+    content = forms.CharField(widget=forms.Textarea, label="content")
+
+
+def edit_page(request, title):
+    entry = util.get_entry(title)
+
+    if entry is None:
+        error = True
+    else:
+        error = False
+
+    if request.method == "POST":
+        form = EditPageForm(request.POST)
+        if form.is_valid():
+            content = form.cleaned_data["content"]
+            # Save the updated content
+            util.save_entry(title, content)
+            return HttpResponseRedirect(reverse("entry", kwargs={"title": title}))
+    
+    # If it's a GET request, show the form with the current content pre-populated
+    else:
+        form = EditPageForm(initial={"content": entry})
+
+    return render(request, "encyclopedia/edit_page.html", {
+        "error": error,
+        "form": form,
+        "title": title
+    })
+
