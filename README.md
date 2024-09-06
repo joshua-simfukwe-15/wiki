@@ -22,9 +22,3 @@ This is a simple Wikipedia-like encyclopedia built using Django. Users can brows
   - `create_page.html`: Page for creating new entries.
   - `edit_page.html`: Page for editing existing entries.
   - `search.html`: Displays search results for queries that don't match an exact entry.
-    
-## How to Run
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/username/wiki-encyclopedia.git
