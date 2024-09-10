@@ -6,7 +6,13 @@
 
 {% block body %}
 
+{% if error %}
+<div class="alert alert-danger">
+    {{ entry | safe }}
+</div>
+{% else %}
 {{ entry | safe }}
-
 <a href="{% url 'edit_page' title=title %}" class="btn btn-primary">Edit Page</a>
+{% endif %}
+
 {% endblock %}

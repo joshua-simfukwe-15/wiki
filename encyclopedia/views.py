@@ -19,13 +19,16 @@ def index(request):
 def entry(request, title):
     entry = util.get_entry(title)
     markdowner = Markdown()
+    Error = False
 
     if entry == None:
+        Error = True
         entry = f"## {title.capitalize()}\'s page has not been found"
     entry=markdowner.convert(entry)    
     return render(request, "encyclopedia/entry.html", {
         "title":title,
-        "entry": entry
+        "entry": entry,
+        "error": Error
     })
 
 def search(request):
