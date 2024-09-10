@@ -18,21 +18,47 @@ textarea {
 }
 
 .main {
-    padding: 10px;
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 .search {
     width: 100%;
     font-size: 15px;
     line-height: 15px;
+    margin-bottom: 10px;
 }
 
 .sidebar {
+    box-sizing: border-box;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     background-color: #f0f0f0;
     height: 100vh;
     padding: 20px;
 }
 
+
+
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.sidebar-btn {
+    margin-bottom: 10px;
+}
+
+.row {
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        height: auto;
+        position: static;
+        width: 100%;
+        top: 0;
+        left: 0;
+    }
 }
